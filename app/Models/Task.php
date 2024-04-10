@@ -19,6 +19,7 @@ class Task extends Model
      */
     protected $fillable = [
         'id',
-        'task_status_id'
+        'task_status_id',
+        'user_id'
     ];
 }
