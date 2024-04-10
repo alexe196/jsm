@@ -22,4 +22,14 @@ class TaskStatusTime extends Model
         'task_id',
         'date'
     ];
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'task_id', 'id');
+    }
+
+    public function taskstatus()
+    {
+        return $this->belongsTo(TaskStatus::class, 'task_status_id', 'id');
+    }
 }

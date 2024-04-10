@@ -24,7 +24,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'first_name',
         'last_name',
         'phone',
@@ -61,4 +60,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function task()
+    {
+        return $this->hasMany(Task::class, 'user_id', 'id');
+    }
 }
