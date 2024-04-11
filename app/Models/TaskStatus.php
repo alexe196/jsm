@@ -9,6 +9,10 @@ class TaskStatus extends Model
 {
     use HasFactory;
 
+    const STATUS_PROCESS = 1;
+    const STATUS_ERROR = 2;
+    const STATUS_READY = 3;
+
 
     public $timestamps = false;
 

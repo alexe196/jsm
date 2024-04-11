@@ -16,10 +16,32 @@ class Tasks extends Component
     public $name;
     public $description;
     public $tasks;
+    public $isOpen = false;
 
+    public function openPopup()
+    {
+        $this->isOpen = true;
+    }
+
+    public function closePopup()
+    {
+        $this->isOpen = false;
+    }
+
+
+    public function modal() {
+        $this->confirmingUserDeletion = true;
+    }
+
+    public function confirmingUserDeletion($id) {
+        if ($id) {
+//            $group = GroupCard::where('id', $id);
+//            $group->delete();
+        }
+    }
 
     public function getTasks() {
-        $this->tasks = Task::where(['user_id' => Auth::user()->id])->get();
+        $this->tasks = Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '!=', TaskStatus::STATUS_READY)->get();
     }
 
 
