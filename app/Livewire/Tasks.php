@@ -10,6 +10,8 @@ use Livewire\Component;
 class Tasks extends Component
 {
 
+    public $id;
+    public $itemid = [];
     public $tasstatus;
     public $task_status_id;
     public $user_id;
@@ -29,16 +31,16 @@ class Tasks extends Component
     }
 
 
-    public function modal() {
-        $this->confirmingUserDeletion = true;
-    }
-
-    public function confirmingUserDeletion($id) {
-        if ($id) {
+//    public function modal() {
+//        $this->confirmingUserDeletion = true;
+//    }
+//
+//    public function confirmingUserDeletion($id) {
+//        if ($id) {
 //            $group = GroupCard::where('id', $id);
 //            $group->delete();
-        }
-    }
+//        }
+//    }
 
     public function getTasks() {
         $this->tasks = Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '!=', TaskStatus::STATUS_READY)->get();
@@ -55,6 +57,19 @@ class Tasks extends Component
         $this->taskStatus();
 
         return view('livewire.tasks');
+    }
+
+    public function edit($id)
+    {
+
+        if($task = Task::find($id)) {
+            $task->task_status_id = $this->task_status_id;
+            $task->update();
+        }
+
+
+        return redirect()->to('/tasks')
+            ->with('status', 'Post created!');
     }
 
     public function save()

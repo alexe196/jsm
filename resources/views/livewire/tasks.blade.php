@@ -83,14 +83,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($tasks as $item)
+                @foreach ($tasks  as $index => $item)
                     <tr>
                         <th scope="row">{{$item->id}}</th>
                         <td class="text-center">{{$item->taskstatus->name}}</td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->description}}</td>
                         <td class="text-center">
-
+                         <form wire:submit.prevent="edit('{{ $item->id }}')">
+                                <div class="row">
+                                    <div class="col-8 mt-4">
+                                        <select class="form-control"wire:model="task_status_id" aria-label="Default select example">
+                                            <option value="">{{ __('Select Status') }}</option>
+                                            @foreach ($tasstatus as $status)
+                                                <option {{$item->taskstatus->id == $status->id ? 'selected' : ''}} wire:key="{{ $status->id }}" value="{{$status->id}}">{{$status->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col mb-4">
+                                        <button  class="btn btn-primary" type="submit">
+                                            {{ __('edit') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

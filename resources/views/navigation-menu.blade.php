@@ -15,23 +15,13 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="container-fluid">
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav">
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('task.index')}}">{{ __('Tasks') }}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">{{ __('Tasks Ready') }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <x-nav-link href="{{ route('task.index') }}">
+                        {{ __('Tasks') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('task-ready') }}">
+                        {{ __('Tasks Ready') }}
+                    </x-nav-link>
                 </div>
-
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">

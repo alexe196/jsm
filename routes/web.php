@@ -28,4 +28,6 @@ Route::middleware([
     // This is our new line
 
     Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index'])->name('task.index');
+
+    Route::get('/tasks-ready', App\Livewire\TaskReady::class)->name('task-ready');
 });
