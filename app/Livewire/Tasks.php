@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Task;
 use App\Models\TaskStatus;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Reposytori\ReposytoriTaskStatusTime;
+use App\Reposytori\ReposytoriTask;
 
 class Tasks extends Component
 {
@@ -20,34 +20,12 @@ class Tasks extends Component
     public $tasks;
     public $isOpen = false;
 
-    public function openPopup()
-    {
-        $this->isOpen = true;
+
+    private function getTasks() {
+        $this->tasks = ReposytoriTask::getTasks();
     }
 
-    public function closePopup()
-    {
-        $this->isOpen = false;
-    }
-
-
-//    public function modal() {
-//        $this->confirmingUserDeletion = true;
-//    }
-//
-//    public function confirmingUserDeletion($id) {
-//        if ($id) {
-//            $group = GroupCard::where('id', $id);
-//            $group->delete();
-//        }
-//    }
-
-    public function getTasks() {
-        $this->tasks = Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '!=', TaskStatus::STATUS_READY)->get();
-    }
-
-
-    public function taskStatus() {
+    private function taskStatus() {
         $this->tasstatus =  TaskStatus::all();
     }
 
@@ -61,27 +39,19 @@ class Tasks extends Component
 
     public function edit($id)
     {
-
-        if($task = Task::find($id)) {
-            $task->task_status_id = $this->task_status_id;
-            $task->update();
+        if(ReposytoriTask::edit($id, $this->task_status_id)) {
+            ReposytoriTaskStatusTime::createTaskStatusTime($this->task_status_id,$id);
         }
-
-
-        return redirect()->to('/tasks')
-            ->with('status', 'Post created!');
     }
 
     public function save()
     {
-        Task::create([
-            'task_status_id' => $this->task_status_id,
-            'user_id' => Auth::user()->id,
-            'name' => $this->name,
-            'description' => $this->description,
-        ]);
+        $data['task_status_id'] = $this->task_status_id;
+        $data['name'] = $this->name;
+        $data['description'] = $this->description;
 
-        return redirect()->to('/tasks')
-            ->with('status', 'Post created!');
+        if($id = ReposytoriTask::save($data)) {
+            ReposytoriTaskStatusTime::createTaskStatusTime($this->task_status_id, $id);
+        }
     }
 }

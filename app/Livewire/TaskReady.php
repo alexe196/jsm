@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Task;
-use App\Models\TaskStatus;
-use Illuminate\Support\Facades\Auth;
+use App\Reposytori\ReposytoriTask;
 use Livewire\Component;
+use App\Reposytori\ReposytoriTaskStatusTime;
+use App\Reposytori\TaskStatusReposytori;
 
 
 
@@ -14,31 +14,26 @@ class TaskReady extends Component
 
     public $id;
     public $tasstatus;
+    public $taskstatus;
     public $task_status_id;
     public $user_id;
 
-
-
-
-    public function getTasks() {
-        $this->tasks = Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '=', TaskStatus::STATUS_READY)->get();
+    public function getTaskStatusTime() {
+        $this->taskstatus = TaskStatusReposytori::getTaskStatusArr();
     }
 
     public function delete($id)
     {
-        if( $task = Task::find($id) ) {
-            $task->delete();
-            //$this->getTasks();
-        }
+        ReposytoriTaskStatusTime::deleteTaskStatusTime($id);
+        ReposytoriTask::delete($id);
     }
 
 
     public function render()
     {
-
-
+        $this->getTaskStatusTime();
         return view('livewire.task-ready', [
-            'tasks' => Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '=', TaskStatus::STATUS_READY)->get(),
+            'tasks' => ReposytoriTask::getTasksReady(),
         ]);
     }
 }

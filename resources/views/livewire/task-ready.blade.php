@@ -8,6 +8,7 @@
                     <th scope="col">Task status</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Status Time</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -18,6 +19,13 @@
                         <td class="text-center">{{$item->taskstatus->name}}</td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->description}}</td>
+                        <td class="text-center">
+                            @foreach($item->taskstatustime as $stime)
+                                <div>
+                                    {{$taskstatus[$stime->task_status_id]}} - {{$stime->date}}
+                                </div>
+                            @endforeach
+                        </td>
                         <td class="text-center">
                             <div class="mt-5 md:mt-0 md:col-span-2">
                                 <input type="hidden"  wire:model="id" value="{{$item->id}}">

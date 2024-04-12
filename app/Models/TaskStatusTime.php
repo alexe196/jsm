@@ -11,6 +11,11 @@ class TaskStatusTime extends Model
 
     public $timestamps = false;
 
+    public function getTable()
+    {
+        return 'task_status_time';
+    }
+
     /**
      * The attributes that are mass assignable.
      *

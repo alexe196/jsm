@@ -41,7 +41,7 @@
                                         <x-input-error for="description" class="mt-2" />
                                     </div>
                                     <div class="col mt-4">
-                                        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">{{ __('Save') }}</button>
                                     </div>
                                 </div>
                             </form>
@@ -57,21 +57,6 @@
         </div>
         <div class="flex flex-col md:w-1/2 md:pl-12">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Tasks</h1>
-
-{{--            <div>--}}
-{{--                @if($isOpen)--}}
-{{--                    <div class="popup">--}}
-
-{{--                        <!-- Ваше содержимое всплывающего окна -->--}}
-{{--                        <button wire:click="closePopup">Закрыть</button>--}}
-{{--                    </div>--}}
-
-
-{{--                @endif--}}
-
-{{--                <button wire:click="openPopup">Открыть всплывающее окно</button>--}}
-{{--            </div>--}}
-
             <table class="table table-dark">
                 <thead>
                 <tr>
@@ -115,6 +100,7 @@
             </table>
         </div>
     </div>
+
 </section>
 
 

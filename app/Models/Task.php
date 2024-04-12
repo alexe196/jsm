@@ -41,7 +41,7 @@ class Task extends Model
 
     public function taskstatustime()
     {
-        return $this->hasMany(TaskStatusTime::class, 'id', 'task_status_id');
+        return $this->hasMany(TaskStatusTime::class, 'task_id', 'id');
     }
 
 }
