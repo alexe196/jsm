@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('task_status_time', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_status_id')->default()->nullable();
-            $table->unsignedBigInteger('task_id')->default()->nullable();
-            $table->dateTime('date')->default('0000-00-00 00:00:00');
+            $table->unsignedBigInteger('task_status_id')->nullable();
+            $table->unsignedBigInteger('task_id')->nullable();
+            $table->dateTime('date')->default(null);
 
             $table->foreign('task_status_id')->references('id')->on('task_statuses');
             $table->foreign('task_id')->references('id')->on('task');

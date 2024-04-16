@@ -16,11 +16,11 @@
                 @foreach ($tasks as $item)
                     <tr>
                         <th scope="row">{{$item->id}}</th>
-                        <td class="text-center">{{$item->taskstatus->name}}</td>
+                        <td class="text-center">{{$item->task_status->name}}</td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->description}}</td>
                         <td class="text-center">
-                            @foreach($item->taskstatustime as $stime)
+                            @foreach($item->task_status_time as $stime)
                                 <div>
                                     {{$taskstatus[$stime->task_status_id]}} - {{$stime->date}}
                                 </div>

@@ -33,7 +33,7 @@ class TaskStatusTime extends Model
         return $this->belongsTo(Task::class, 'task_id', 'id');
     }
 
-    public function taskstatus()
+    public function task_status()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'id');
     }

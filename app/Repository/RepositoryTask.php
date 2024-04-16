@@ -1,28 +1,28 @@
 <?php
 
 
-namespace App\Reposytori;
+namespace App\Repository;
 
 
 use App\Models\Task;
 use App\Models\TaskStatus;
 use Illuminate\Support\Facades\Auth;
 
-class ReposytoriTask
+class RepositoryTask
 {
 
-    public static function getTasks() {
-        return Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '!=', TaskStatus::STATUS_READY)->get();
+    public static function getTasksNoReady() {
+        return Auth::user()->task()->where('task_status_id', '!=', TaskStatus::STATUS_READY)->get();
     }
 
     public static function getTasksReady() {
-        return Task::where(['user_id' => Auth::user()->id])->where('task_status_id', '=', TaskStatus::STATUS_READY)->get();
+        return Auth::user()->task()->where(['user_id' => Auth::user()->id])->where('task_status_id', '=', TaskStatus::STATUS_READY)->get();
     }
 
-    public static function edit($task_id, $task_status_id)
+    public static function updateTask($data)
     {
-        if ($task = Task::find($task_id)) {
-            $task->task_status_id = $task_status_id;
+        if ($task = Task::find($data['task_id'])) {
+            $task->task_status_id = $data['task_status_id'];
             $task->update();
             return true;
         }
@@ -30,14 +30,14 @@ class ReposytoriTask
         return false;
     }
 
-    public static function delete($id)
+    public static function deleteTask($id)
     {
         if ($task = Task::find($id)) {
             $task->delete();
         }
     }
 
-    public static function save(array $data) {
+    public static function createTask(array $data) {
         $task = Task::create([
             'task_status_id' => $data['task_status_id'],
             'user_id' => Auth::user()->id,

@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('task', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_status_id')->default()->nullable();
+            $table->string("name", 250)->nullable();
+            $table->string("description")->nullable();
+            $table->unsignedBigInteger('task_status_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
 
-            $table->foreign('task_status_id')->references('id')->on('task_statuses');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('task_status_id')->references('id')->on('task_statuses')->cascadeOnDelete();
         });
     }
 

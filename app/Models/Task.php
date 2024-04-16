@@ -9,10 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    public function getTable()
-    {
-        return parent::getTable();
-    }
+    public $table='task';
 
     public $timestamps = false;
 
@@ -34,12 +31,12 @@ class Task extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function taskstatus()
+    public function task_status()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'id');
     }
 
-    public function taskstatustime()
+    public function task_status_time()
     {
         return $this->hasMany(TaskStatusTime::class, 'task_id', 'id');
     }

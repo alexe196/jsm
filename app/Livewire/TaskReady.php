@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Reposytori\ReposytoriTask;
+use App\Repository\RepositoryTask;
 use Livewire\Component;
-use App\Reposytori\ReposytoriTaskStatusTime;
-use App\Reposytori\TaskStatusReposytori;
+use App\Repository\RepositoryTaskStatusTime;
+use App\Repository\RepositoryTaskStatus;
 
 
 
@@ -13,27 +13,33 @@ class TaskReady extends Component
 {
 
     public $id;
-    public $tasstatus;
     public $taskstatus;
     public $task_status_id;
     public $user_id;
 
-    public function getTaskStatusTime() {
-        $this->taskstatus = TaskStatusReposytori::getTaskStatusArr();
+
+    protected $rulesTaskStatus = [
+        'id' => 'required|integer',
+    ];
+
+    public function taskStatusTime() {
+        $this->taskstatus = RepositoryTaskStatus::getTaskStatusArr();
     }
 
     public function delete($id)
     {
-        ReposytoriTaskStatusTime::deleteTaskStatusTime($id);
-        ReposytoriTask::delete($id);
+        $this->validateOnly($id, $this->rulesTaskStatus);
+
+        RepositoryTaskStatusTime::deleteTaskStatusTime($id);
+        RepositoryTask::deleteTask($id);
     }
 
 
     public function render()
     {
-        $this->getTaskStatusTime();
+        $this->taskStatusTime();
         return view('livewire.task-ready', [
-            'tasks' => ReposytoriTask::getTasksReady(),
+            'tasks' => RepositoryTask::getTasksReady(),
         ]);
     }
 }

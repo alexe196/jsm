@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Reposytori;
+namespace App\Repository;
 
 
 use App\Models\TaskStatus;
 
-class TaskStatusReposytori
+class RepositoryTaskStatus
 {
 
     public static function getTaskStatus() {

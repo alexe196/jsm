@@ -1,22 +1,22 @@
 <?php
 
 
-namespace App\Reposytori;
+namespace App\Repository;
 
 
 use App\Models\TaskStatusTime;
 use Illuminate\Support\Carbon;
 
-class ReposytoriTaskStatusTime
+class RepositoryTaskStatusTime
 {
-    public static function createTaskStatusTime($task_status_id, $task_id) {
+    public static function createTaskStatusTime($data) {
 
-        if(empty($task_status_id) || empty($task_id))
+        if(empty($data['task_status_id']) || empty($data['task_id']))
             return null;
 
         return TaskStatusTime::create([
-            'task_status_id' => $task_status_id,
-            'task_id' => $task_id,
+            'task_status_id' => $data['task_status_id'],
+            'task_id' => $data['task_id'],
             'date' => Carbon::now()->toDateTimeString()
         ]);
     }
