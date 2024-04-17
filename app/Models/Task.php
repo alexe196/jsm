@@ -26,6 +26,15 @@ class Task extends Model
         'description'
     ];
 
+    public static function boot() {
+        parent::boot();
+
+
+        static::deleting(function($task) {
+            $task->task_status_time()->delete();
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

@@ -30,7 +30,7 @@ class TaskReady extends Component
     {
         $this->validateOnly($id, $this->rulesTaskStatus);
 
-        RepositoryTaskStatusTime::deleteTaskStatusTime($id);
+        //RepositoryTaskStatusTime::deleteTaskStatusTime($id);
         RepositoryTask::deleteTask($id);
     }
 
